@@ -1,6 +1,6 @@
 import React from 'react';
 import { Language, TRANSLATIONS } from '../data/translations';
-import { ShieldCheck, ShieldAlert, Globe } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, Globe, Download } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: 'dashboard' | 'ips' | 'map' | 'browser' | 'config';
@@ -10,6 +10,7 @@ interface NavbarProps {
   isConnected: boolean;
   onToggleConnect: () => void;
   isConnecting: boolean;
+  onOpenDownloadModal: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -20,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   isConnected,
   onToggleConnect,
   isConnecting,
+  onOpenDownloadModal,
 }) => {
   const t = TRANSLATIONS[lang];
 
@@ -113,7 +115,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Zone 3: 1 Primary Action + Quick Language Toggle */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            onClick={onOpenDownloadModal}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-600/50 rounded-lg transition-colors whitespace-nowrap shadow-sm shadow-emerald-500/20"
+            title="Download & Install App / অ্যাপ ডাউনলোড ও ইনস্টল"
+          >
+            <Download className="w-3.5 h-3.5 text-emerald-400 animate-bounce" />
+            <span>{lang === 'bn' ? 'অ্যাপ ডাউনলোড' : 'Download App'}</span>
+          </button>
+
           <button
             onClick={() => setLang(lang === 'bn' ? 'en' : 'bn')}
             className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 border border-slate-800 rounded-lg transition-colors whitespace-nowrap"

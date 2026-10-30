@@ -15,6 +15,7 @@ import { FranceMap } from './components/FranceMap';
 import { AnonymousBrowser } from './components/AnonymousBrowser';
 import { SpeedTestModal } from './components/SpeedTestModal';
 import { ConfigExporterModal } from './components/ConfigExporterModal';
+import { AppDownloadModal } from './components/AppDownloadModal';
 import datacenterImg from './assets/images/france_datacenter_1791994085761.jpg';
 import shieldTechImg from './assets/images/france_shield_tech_1791994111147.jpg';
 import {
@@ -54,6 +55,7 @@ export default function App() {
   // Modals
   const [isSpeedTestOpen, setIsSpeedTestOpen] = useState(false);
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
   // When user selects an IP from the 100+ list
   const handleSelectIp = (ipItem: FranceIPItem) => {
@@ -135,6 +137,7 @@ export default function App() {
         isConnected={isConnected}
         onToggleConnect={handleToggleConnect}
         isConnecting={isConnecting}
+        onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -166,6 +169,28 @@ export default function App() {
               {lang === 'bn' ? 'আইপি পরিবর্তন করুন (১০০+)' : 'Switch IP (100+)'}
             </button>
           </div>
+        </div>
+
+        {/* App Install Prompt Bar for Mobile & Desktop */}
+        <div className="bg-gradient-to-r from-emerald-950/50 via-slate-900/90 to-blue-950/50 border border-emerald-500/30 rounded-xl px-4 py-2.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs shadow-md">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-2 w-2 relative shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="text-slate-200 font-medium">
+              {lang === 'bn' 
+                ? '📱 মোবাইলে বা পিসিতে FranceVPN অ্যাপ সরাসরি ইনস্টল ও ডাউনলোড করতে চান?' 
+                : '📱 Want to install FranceVPN natively on your Android phone or PC?'}
+            </span>
+          </div>
+          <button
+            onClick={() => setIsDownloadModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-semibold text-xs transition shadow-sm whitespace-nowrap shrink-0 cursor-pointer"
+          >
+            <span>{lang === 'bn' ? 'অ্যাপ ডাউনলোড ও ইনস্টল' : 'Download / Install App'}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
         {/* Tab Content Rendering */}
@@ -386,6 +411,12 @@ export default function App() {
         onClose={() => setIsConfigModalOpen(false)}
         selectedServer={selectedServer}
         currentIp={selectedIpItem.ip}
+        lang={lang}
+      />
+
+      <AppDownloadModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
         lang={lang}
       />
     </div>
