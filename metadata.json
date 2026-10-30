@@ -1,0 +1,6 @@
+{
+  "name": "FranceShield Ultra VPN - 2s IP Rotator & Anonymous Browser",
+  "description": "Ultra-fast France-exclusive VPN and anonymous proxy suite featuring 2-second IP rotation, French high-speed server nodes, DNS leak shield, and secure private browsing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
